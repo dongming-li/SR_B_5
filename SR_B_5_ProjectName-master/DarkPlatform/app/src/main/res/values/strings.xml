@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DarkPlatform</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="new_menu">Main Menu</string>
+    <string name="help">Help</string>
+
+    <string name="button_text">Send</string>
+    <string name="title_activity_display_message">DisplayMessage</string>
+
+    <string name="bill_text_view">Bill</string>
+    <string name="bill_edit_text">0.0</string>
+
+    <string name="tip_text_view">Tip</string>
+    <string name="tip_edit_text">.15</string>
+
+    <string name="final_bill_text_view">Final bill</string>
+    <string name="final_bill_edit_text">.15</string>
+
+    <string name="myButton">Send</string>
+</resources>

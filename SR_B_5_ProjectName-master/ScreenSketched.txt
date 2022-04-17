@@ -1,0 +1,8 @@
+Map Editor - Akaash
+Multiplayer Lobby - Akaash
+Map selection/download - Josh 
+Webiste for downloading the game and looking at highscores - Alex
+Controller - Ibrahim
+In game (single)- Ibrahim
+in game (multi) - Josh
+Menus - Alex

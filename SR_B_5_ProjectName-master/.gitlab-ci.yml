@@ -1,0 +1,69 @@
+image: java:8-jdk
+
+stages:
+  - test
+  - build
+  - image
+  - deploy
+
+before_script:
+    - chmod -R +rwx DarkPlatformBackend
+    - chmod -R +rwx DarkPlatform
+
+test-server:
+  stage: test
+  script:
+    - cd DarkPlatformBackend
+    - ./mvnw clean test
+    - cat target/site/jacoco/index.html
+ 
+# test-app:
+  # stage: test
+  # script:
+    # - ./DarkPlatform/gradlew test -p DarkPlatform
+    # - ./DarkPlatform/gradlew jacocoTestReport -p DarkPlatform
+    # - cat DarkPlatform/app/build/reports/jacoco/jacocoTestDebugUnitTestReport/html/index.html
+    
+    
+# build-app:
+  # stage: build
+  # script:
+    # - ./DarkPlatform/gradlew assembleDebug -p DarkPlatform
+  # artifacts:
+    # expire_in: 1 week
+    # paths:
+      # - DarkPlatform/app/build/outputs/
+
+build-server:
+  stage: build
+  only:
+    - master
+  script:
+    - chmod -R +rwx DarkPlatformBackend
+    - cd DarkPlatformBackend
+    - ./mvnw package
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - DarkPlatformBackend/target/*.jar
+      
+docker-image:
+  stage: image
+  only:
+    - master
+  script:
+    - cd DarkPlatformBackend
+    - ./mvnw dockerfile:build
+
+deploy-server:
+  stage: deploy
+  only:
+    - master
+  environment:
+    name: prod
+    url: http://proj-309-sr-b-5.cs.iastate.edu:8080/
+  script:
+    - docker stop prod
+    - docker rm prod
+    - docker run --name=prod --detach --restart always -p 8080:8080 spring/prod
+  
